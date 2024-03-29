@@ -1,0 +1,28 @@
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract RealEstate {
+
+    uint256 public buyersCount;
+    uint256 public propertyValue;
+
+    function purchaseProperty(uint256 _buyersApproval, uint256 _propertyValue) external {
+        // Set buyers count
+        buyersCount = _buyersApproval;
+
+        // Assert that the property value is greater than 0
+        assert(_propertyValue > 0);
+
+        // Considered as Sold if approved by at least 5 buyers
+        if (_buyersApproval < 5) {
+            revert("Property requires approval from minimum 5 buyers");
+        }
+    }
+
+    function buyerEligibility(uint256 _buyerIncome) external pure {
+        // Require minimum income of $50,000 for buyers
+        require(_buyerIncome >= 50000, "Buyer income is below required threshold");
+    }
+
+    }
